@@ -1467,8 +1467,8 @@ section,
   position: absolute;
   bottom: 20px;
   right: calc(50% - 65px);
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background-color: var(--accent-color);
   border-radius: 50%;
   display: flex;
@@ -1478,8 +1478,8 @@ section,
 }
 
 .about .profile-header .profile-badge i {
-  color: var(--contrast-color);
-  font-size: 14px;
+  color: green;
+  font-size: 15px;
 }
 
 .about .profile-content h3 {

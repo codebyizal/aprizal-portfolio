@@ -247,10 +247,10 @@
               </div>
 
               <div class="cta-section">
-                <a href="assets/cv/Aprizal-Wahyudi-CV.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                  <i class="bi bi-download"></i>
-                  Download Resume
-                </a>
+                <button type="button" class="btn btn-primary" onclick="downloadCV()">
+                    <i class="bi bi-download"></i>
+                    Download Resume
+                </button>
                 <a href="#contact" class="btn btn-outline">
                   <i class="bi bi-chat-dots"></i>
                   Let's Talk
@@ -540,7 +540,7 @@
                 </li>
                 <li>
                   <i class="bi bi-github"></i>
-                  <a href="https://github.com/izalstr"
+                  <a href="https://github.com/codebyizal"
                     target="_blank"
                     rel="noopener noreferrer">
                     GitHub Profile
@@ -1876,10 +1876,10 @@
                 <div class="content">
                   <h4>GitHub</h4>
                   <p>
-                    <a href="https://github.com/izalstr"
+                    <a href="https://github.com/codebyizal"
                       target="_blank"
                       rel="noopener noreferrer">
-                      github.com/izalstr
+                      github.com/codebyizal
                     </a>
                   </p>
                 </div>
@@ -2032,7 +2032,7 @@
             <!-- Credits -->
       <div class="credits">
         Designed &amp; Developed by
-        <a href="https://github.com/izalstr"
+        <a href="https://github.com/codebyizal"
           target="_blank"
           rel="noopener noreferrer">
           Aprizal Wahyudi
@@ -2113,6 +2113,26 @@ document.getElementById('contactForm').addEventListener('submit', function (even
 
   window.location.href = mailtoLink;
 });
+</script>
+
+<script>
+    function downloadCV() {
+        const files = [
+            'assets/cv/Aprizal-Wahyudi-CV-Indonesia.pdf',
+            'assets/cv/Aprizal-Wahyudi-CV-English.pdf'
+        ];
+
+        files.forEach((file, index) => {
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = file;
+                link.download = file.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, index * 800);
+        });
+    }
 </script>
 
 </body>
