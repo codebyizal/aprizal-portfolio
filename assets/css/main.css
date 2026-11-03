@@ -19,11 +19,11 @@
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
-  --background-color: #1f1f1f; /* Background color for the entire website, including individual sections */
+  --background-color: #0a1020; /* Background color for the entire website, including individual sections */
   --default-color: #ffffff; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
   --accent-color: #ececec; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #232323; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --surface-color: #232323af; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #310606; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
@@ -40,12 +40,12 @@
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 .light-background {
-  --background-color: #2c2c2c;
+  --background-color: #0a1020;
   --surface-color: #323232;
 }
 
 .dark-background {
-  --background-color: #040b14;
+  --background-color: #0a1020;
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --surface-color: #151f2b;
@@ -143,7 +143,7 @@ h6 {
 # Global Header
 --------------------------------------------------------------*/
 .header {
-  --background-color: #1b1b1b;
+  --background-color: #0a1020;
   --contrast-color: #444444;
   color: var(--default-color);
   position: fixed;
@@ -157,11 +157,73 @@ h6 {
   z-index: 997;
 }
 
-.header .header-container {
+/* .header .header-container {
   border-radius: 20px;
   padding: 15px;
   background-color: var(--background-color);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 80%);
+} */
+ .header .header-container {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  border-radius: 20px;
+  padding: 15px;
+
+  /* Navy Liquid Glass */
+  background: rgba(24, 32, 58, 0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+
+  /* Glass border */
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  /* Depth and reflection */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  transition:
+    background .3s ease,
+    box-shadow .3s ease,
+    border-color .3s ease;
+}
+
+/* Pantulan cahaya kaca */
+.header .header-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.025) 65%,
+    rgba(255, 255, 255, 0.07) 100%
+  );
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Hover halus */
+.header .header-container:hover {
+  background: rgba(24, 32, 58, 0.86);
+  border-color: rgba(255, 255, 255, 0.24);
+
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* Fallback browser */
+@supports not (backdrop-filter: blur(24px)) {
+  .header .header-container {
+    background: #18203a;
+  }
 }
 
 .header .social-links {
@@ -206,7 +268,7 @@ h6 {
   left: 0;
 }
 
-.header .header-toggle {
+/* .header .header-toggle {
   color: var(--contrast-color);
   background-color: var(--accent-color);
   font-size: 22px;
@@ -227,7 +289,90 @@ h6 {
 .header .header-toggle:hover {
   color: var(--contrast-color);
   background-color: color-mix(in srgb, var(--accent-color) 90%, white 15%);
+} */
+
+/* Liquid Glass Header Toggle */
+.header .header-toggle {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.10);
+
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.12);
+
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 9999;
+
+  overflow: hidden;
+
+  /* Moving glass reflection */
+  background-image: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0.30) 48%,
+    rgba(56, 189, 248, 0.14) 53%,
+    transparent 68%
+  );
+
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+
+  transition:
+    background-position 0.6s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
+
+/* Hover: Moving Liquid Glass */
+.header .header-toggle:hover {
+  color: #fff !important;
+
+  background-color: rgba(255, 255, 255, 0.16);
+  background-position: 0% 50%;
+
+  border-color: rgba(255, 255, 255, 0.55);
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.2),
+    0 0 16px rgba(56, 189, 248, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+
+  transform: scale(1.05);
+}
+
+/* Keep hamburger visible */
+.header .header-toggle i {
+  color: #fff !important;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .header .header-toggle {
+    transition: none;
+  }
+}
+
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -406,9 +551,7 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-# Scroll Top Button
---------------------------------------------------------------*/
+/* Liquid Glass Scroll Top Button */
 .scroll-top {
   position: fixed;
   visibility: hidden;
@@ -416,28 +559,98 @@ h6 {
   right: 15px;
   bottom: -15px;
   z-index: 99999;
-  background-color: var(--accent-color);
+
   width: 44px;
   height: 44px;
-  border-radius: 50px;
-  transition: all 0.4s;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: color-mix(in srgb, var(--accent-color), transparent 72%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 0 1px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.12);
+
+  overflow: hidden;
+
+  /* Moving glass reflection */
+  background-image: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0.3) 48%,
+    rgba(56, 189, 248, 0.14) 53%,
+    transparent 68%
+  );
+
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+
+  transition:
+    background-position 0.6s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.4s ease,
+    bottom 0.4s ease,
+    visibility 0.4s ease;
 }
 
+/* Icon */
 .scroll-top i {
+  position: relative;
+  z-index: 1;
   font-size: 24px;
-  color: var(--contrast-color);
   line-height: 0;
+  color: #fff;
+  transition: transform 0.3s ease;
 }
 
+/* Hover: Moving Liquid Glass */
 .scroll-top:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
-  color: var(--contrast-color);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 55%);
+  background-position: 0% 50%;
+
+  border-color: rgba(255, 255, 255, 0.6);
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.2),
+    0 0 16px rgba(56, 189, 248, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+
+  transform: translateY(-3px) scale(1.05);
 }
 
+.scroll-top:hover i {
+  transform: translateY(-2px);
+}
+
+/* Active State */
 .scroll-top.active {
   visibility: visible;
   opacity: 1;
   bottom: 15px;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top,
+  .scroll-top i {
+    transition: none;
+  }
+
+  .scroll-top:hover {
+    transform: none;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -659,7 +872,7 @@ section,
   border: 2px solid;
 }
 
-.hero .hero-actions .btn.btn-primary {
+/* .hero .hero-actions .btn.btn-primary {
   background-color: var(--accent-color);
   color: var(--contrast-color);
   border-color: var(--accent-color);
@@ -681,7 +894,136 @@ section,
   background-color: var(--accent-color);
   color: var(--contrast-color);
   transform: translateY(-2px);
+} */
+
+
+/* ================================
+   LIQUID GLASS - HERO BUTTONS
+================================ */
+
+/* Tombol 1 - Primary Glass */
+.hero .hero-actions .btn.btn-primary {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.18);
+
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+
+  border: 1px solid rgba(125, 211, 252, 0.65);
+  border-radius: 50px;
+
+  box-shadow:
+    0 8px 24px rgba(56, 189, 248, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.08);
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
 }
+
+/* Pantulan kaca tombol 1 */
+.hero .hero-actions .btn.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.28),
+    transparent 45%,
+    rgba(56, 189, 248, 0.12)
+  );
+}
+
+/* Hover tombol 1 */
+.hero .hero-actions .btn.btn-primary:hover {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.28);
+  border-color: rgba(255, 255, 255, 0.8);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(56, 189, 248, 0.22),
+    inset 0 1px 2px rgba(255, 255, 255, 0.45);
+}
+
+
+/* Tombol 2 - Outline Glass */
+.hero .hero-actions .btn.btn-outline {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* Pantulan kaca tombol 2 */
+.hero .hero-actions .btn.btn-outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    transparent 48%,
+    rgba(56, 189, 248, 0.08)
+  );
+}
+
+/* Hover tombol 2 */
+.hero .hero-actions .btn.btn-outline:hover {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(255, 255, 255, 0.65);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 26px rgba(56, 189, 248, 0.14),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-actions .btn.btn-primary,
+  .hero .hero-actions .btn.btn-outline {
+    transition: none;
+  }
+}
+
 
 .hero .social-links {
   display: flex;
@@ -691,7 +1033,7 @@ section,
   max-width: 100%;
 }
 
-.hero .social-links a {
+/* .hero .social-links a {
   width: 44px;
   height: 44px;
   flex: 0 0 44px;
@@ -723,6 +1065,101 @@ section,
     flex-basis: 40px;
     font-size: 17px;
   }
+} */
+
+/* Liquid Glass Social Links */
+.hero .social-links a {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Navy Liquid Glass */
+  background: rgba(24, 32, 58, 0.78);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+
+  font-size: 18px;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease,
+    color .3s ease;
+}
+
+/* Glass reflection */
+.hero .social-links a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16),
+    transparent 45%,
+    rgba(255, 255, 255, 0.03)
+  );
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Keep icons above the reflection */
+.hero .social-links a i {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover effect */
+.hero .social-links a:hover {
+  color: #fff;
+  background: rgba(24, 32, 58, 0.95);
+  border-color: rgba(255, 255, 255, 0.3);
+
+  transform: translateY(-4px) scale(1.04);
+
+  box-shadow:
+    0 8px 25px rgba(24, 32, 58, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .hero .social-links {
+    gap: 10px;
+  }
+
+  .hero .social-links a {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    font-size: 17px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero .social-links a {
+    transition: none;
+  }
 }
 
 .hero .hero-visual {
@@ -738,7 +1175,7 @@ section,
   height: 400px;
 }
 
-.hero .hero-visual .profile-container .profile-background {
+/* .hero .hero-visual .profile-container .profile-background {
   position: absolute;
   top: 15px;
   left: 15px;
@@ -747,6 +1184,30 @@ section,
   background: color-mix(in srgb, var(--accent-color), transparent 90%);
   border-radius: 30px;
   z-index: 1;
+} */
+ .hero .hero-visual .profile-container .profile-background {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 100%;
+  height: 100%;
+
+  /* Navy Liquid Glass */
+  background: rgba(24, 32, 58, 0.65);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+
+  /* Glass border */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 30px;
+
+  /* Soft glass depth */
+  box-shadow:
+    0 12px 35px rgba(24, 32, 58, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero .hero-visual .profile-container .profile-image {
@@ -856,7 +1317,7 @@ section,
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/
-.about .profile-card {
+/* .about .profile-card {
   background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 5%) 100%);
   border-radius: 2rem;
   padding: 2.5rem;
@@ -880,6 +1341,104 @@ section,
 @media (max-width: 991px) {
   .about .profile-card {
     margin-bottom: 3rem;
+  }
+} */
+
+/* Liquid Glass Profile Card */
+.about .profile-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background: rgba(24, 32, 58, 0.82);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  text-align: center;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  transition:
+    background .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+/* Glass reflection */
+.about .profile-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.025) 65%,
+    rgba(255, 255, 255, 0.07) 100%
+  );
+}
+
+/* Soft glow */
+.about .profile-card::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -100px;
+  right: -60px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(100, 160, 255, 0.16);
+  filter: blur(45px);
+}
+
+/* Hover */
+.about .profile-card:hover {
+  background: rgba(24, 32, 58, 0.9);
+  border-color: rgba(255, 255, 255, 0.24);
+
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* Profile card accent line */
+.about .profile-card::before {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.16),
+      transparent
+    ) top / 100% 1px no-repeat,
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      transparent 40%,
+      rgba(255, 255, 255, 0.04)
+    );
+}
+
+@media (max-width: 991px) {
+  .about .profile-card {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about .profile-card {
+    transition: none;
   }
 }
 
@@ -942,7 +1501,7 @@ section,
   gap: 1rem;
 }
 
-.about .contact-links .contact-item {
+/* .about .contact-links .contact-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -965,6 +1524,88 @@ section,
 .about .contact-links .contact-item i {
   font-size: 1rem;
   width: 18px;
+} */
+ /* Liquid Glass Contact Links */
+.about .contact-links .contact-item {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+padding: 0.75rem 1rem;
+
+background: rgba(24, 32, 58, 0.78);
+-webkit-backdrop-filter: blur(18px) saturate(160%);
+backdrop-filter: blur(18px) saturate(160%);
+
+border: 1px solid rgba(255, 255, 255, 0.15);
+border-radius: 0.75rem;
+
+text-decoration: none;
+color: #fff;
+
+box-shadow:
+0 8px 20px rgba(0, 0, 0, 0.1),
+inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+position: relative;
+overflow: hidden;
+isolation: isolate;
+
+transition:
+background 0.3s ease,
+border-color 0.3s ease,
+box-shadow 0.3s ease,
+transform 0.3s ease;
+}
+
+/* Glass Reflection */
+.about .contact-links .contact-item::before {
+content: "";
+position: absolute;
+inset: 0;
+z-index: -1;
+pointer-events: none;
+border-radius: inherit;
+
+background: linear-gradient(
+135deg,
+rgba(255, 255, 255, 0.12) 0%,
+transparent 40%,
+rgba(255, 255, 255, 0.025) 70%,
+rgba(255, 255, 255, 0.07) 100%
+);
+}
+
+/* Hover Effect */
+.about .contact-links .contact-item {
+background: rgba(24, 32, 58, 0.95);
+color: #fff;
+border-color: rgba(255, 255, 255, 0.28);
+transform: translateY(-3px);
+
+box-shadow:
+0 12px 28px rgba(0, 0, 0, 0.2),
+inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Contact Icon */
+.about .contact-links .contact-item i {
+font-size: 1rem;
+width: 18px;
+flex-shrink: 0;
+color: rgba(255, 255, 255, 0.85);
+transition: color 0.3s ease;
+}
+
+.about .contact-links .contact-item i {
+color: #fff;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+.about .contact-links .contact-item,
+.about .contact-links .contact-item i {
+transition: none;
+}
 }
 
 .about .about-content {
@@ -981,7 +1622,7 @@ section,
   margin-bottom: 2rem;
 }
 
-.about .about-content .section-header .badge-text {
+/* .about .about-content .section-header .badge-text {
   display: inline-block;
   background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 20%));
   color: var(--contrast-color);
@@ -991,6 +1632,80 @@ section,
   font-weight: 600;
   letter-spacing: 0.5px;
   margin-bottom: 1.5rem;
+} */
+
+/* Liquid Glass - About Badge */
+.about .about-content .section-header .badge-text {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.10);
+
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+
+  color: var(--accent-color);
+
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 2rem;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    0 0 16px rgba(56, 189, 248, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.08);
+
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* Pantulan cahaya kaca */
+.about .about-content .section-header .badge-text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.30) 0%,
+    rgba(255, 255, 255, 0.06) 35%,
+    transparent 60%,
+    rgba(56, 189, 248, 0.12) 100%
+  );
+}
+
+/* Hover Liquid Glass */
+.about .about-content .section-header .badge-text:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.48);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 0 20px rgba(56, 189, 248, 0.14),
+    inset 0 1px 2px rgba(255, 255, 255, 0.45);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .about .about-content .section-header .badge-text {
+    transition: none;
+  }
 }
 
 .about .about-content .section-header h2 {
@@ -1021,7 +1736,7 @@ section,
   margin-bottom: 0;
 }
 
-.about .stats-grid {
+/* .about .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -1056,6 +1771,106 @@ section,
   font-size: 0.875rem;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   font-weight: 500;
+} */
+
+/* Liquid Glass - Stats Grid */
+.about .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 1.5rem;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 0 20px rgba(56, 189, 248, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.28),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.06);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* Glass Reflection */
+.about .stats-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 55%,
+    rgba(56, 189, 248, 0.08) 100%
+  );
+}
+
+/* Hover Effect */
+.about .stats-grid:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.12),
+    0 0 24px rgba(56, 189, 248, 0.10),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+/* Stat Item */
+.about .stats-grid .stat-item {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stat Number */
+.about .stats-grid .stat-item .stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  display: block;
+  margin-bottom: 0.5rem;
+
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.12);
+}
+
+/* Stat Label */
+.about .stats-grid .stat-item .stat-label {
+  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .about .stats-grid {
+    transition: none;
+  }
 }
 
 .about .details-grid {
@@ -1242,6 +2057,159 @@ section,
   opacity: 0.8;
 }
 
+
+/* Liquid Glass - Stats Cards */
+.stats .stats-item {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--surface-color), transparent 50%),
+    var(--surface-color)
+  );
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 15px;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* Pantulan cahaya pada permukaan kaca */
+.stats .stats-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.04) 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  opacity: 0.65;
+  transition: opacity 0.35s ease;
+}
+
+/* Efek hover */
+.stats .stats-item:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--default-color), transparent 78%);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.09),
+    0 0 18px rgba(56, 189, 248, 0.05),
+    inset 0 1px 2px rgba(255, 255, 255, 0.24);
+}
+
+.stats .stats-item:hover::before {
+  opacity: 1;
+}
+
+.stats .stats-item:hover .icon-wrapper {
+  transform: scale(1.08);
+}
+
+/* Warna ikon tetap mengikuti desain asli */
+.stats .stats-item:nth-child(1) .icon-wrapper {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 85%);
+}
+
+.stats .stats-item:nth-child(1) .icon-wrapper i {
+  color: color-mix(in srgb, var(--accent-color), transparent 10%);
+}
+
+.stats .stats-item:nth-child(2) .icon-wrapper {
+  background-color: color-mix(in srgb, #ff7e00, transparent 85%);
+}
+
+.stats .stats-item:nth-child(2) .icon-wrapper i {
+  color: color-mix(in srgb, #ff7e00, transparent 10%);
+}
+
+.stats .stats-item:nth-child(3) .icon-wrapper {
+  background-color: color-mix(in srgb, #00c875, transparent 85%);
+}
+
+.stats .stats-item:nth-child(3) .icon-wrapper i {
+  color: color-mix(in srgb, #00c875, transparent 10%);
+}
+
+.stats .stats-item:nth-child(4) .icon-wrapper {
+  background-color: color-mix(in srgb, #e83e8c, transparent 85%);
+}
+
+.stats .stats-item:nth-child(4) .icon-wrapper i {
+  color: color-mix(in srgb, #e83e8c, transparent 10%);
+}
+
+/* Icon Wrapper */
+.stats .stats-item .icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.35s ease;
+}
+
+.stats .stats-item .icon-wrapper i {
+  font-size: 36px;
+}
+
+/* Angka statistik */
+.stats .stats-item span {
+  display: block;
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 10px;
+  line-height: 1;
+  font-family: var(--heading-font);
+  position: relative;
+  z-index: 1;
+}
+
+/* Label statistik */
+.stats .stats-item p {
+  color: var(--default-color);
+  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+  font-family: var(--heading-font);
+  opacity: 0.8;
+  position: relative;
+  z-index: 1;
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .stats .stats-item,
+  .stats .stats-item::before,
+  .stats .stats-item .icon-wrapper {
+    transition: none;
+  }
+}
+
+
 /*--------------------------------------------------------------
 # Skills Section
 --------------------------------------------------------------*/
@@ -1390,6 +2358,289 @@ section,
   }
 }
 
+
+/* ========================================
+   LIQUID GLASS - SKILLS CATEGORY
+======================================== */
+.skills .skills-category {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--surface-color), transparent 3%),
+    var(--surface-color)
+  );
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  padding: 30px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 12px;
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  height: 100%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.skills .skills-category::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 60%,
+    rgba(56, 189, 248, 0.04) 100%
+  );
+  opacity: 0.7;
+  transition: opacity 0.35s ease;
+}
+
+.skills .skills-category:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--default-color), transparent 78%);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08),
+    0 0 18px rgba(56, 189, 248, 0.05),
+    inset 0 1px 2px rgba(255, 255, 255, 0.24);
+}
+
+.skills .skills-category:hover::before {
+  opacity: 1;
+}
+
+/* Heading Kategori */
+.skills .skills-category h3 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.skills .skills-category h3:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color), transparent 65%);
+}
+
+/* ========================================
+   SKILL ITEM & PROGRESS BAR
+======================================== */
+.skills .skill-item {
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.skills .skill-item:last-child {
+  margin-bottom: 0;
+}
+
+.skills .skill-item h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.skills .skill-item .skill-percentage {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--heading-color), transparent 30%);
+}
+
+/* Progress Track - Glass Subtle */
+.skills .skill-item .progress {
+  height: 8px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 94%);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Progress Fill */
+.skills .skill-item .progress .progress-bar {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent-color), white 8%),
+    var(--accent-color)
+  );
+  transition: width 1.5s ease-in-out;
+  width: 0;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color), transparent 65%);
+}
+
+/* Tooltip Skill */
+.skills .skill-item .skill-tooltip {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.skills .skill-item:hover .skill-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   LIQUID GLASS - SKILL BOX
+======================================== */
+.skills .skill-box {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--surface-color), transparent 3%),
+    var(--surface-color)
+  );
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  padding: 25px 20px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 12px;
+  text-align: center;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+  height: 100%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 0 15px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.16);
+}
+
+.skills .skill-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 32%,
+    transparent 65%,
+    rgba(56, 189, 248, 0.04) 100%
+  );
+  opacity: 0.65;
+  transition: opacity 0.35s ease;
+}
+
+.skills .skill-box:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--default-color), transparent 78%);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.08),
+    0 0 18px rgba(56, 189, 248, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.24);
+}
+
+.skills .skill-box:hover::before {
+  opacity: 1;
+}
+
+.skills .skill-box:hover i {
+  color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.skills .skill-box:hover .skill-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Icon Teknologi */
+.skills .skill-box i {
+  font-size: 36px;
+  color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  margin-bottom: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.skills .skill-box h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.skills .skill-box .skill-tooltip {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 991.98px) {
+  .skills .skills-category {
+    margin-bottom: 30px;
+  }
+
+  .skills .skills-category:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .skills .skill-box {
+    margin-bottom: 20px;
+  }
+
+  .skills .skill-box:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Reduce Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .skills .skills-category,
+  .skills .skills-category::before,
+  .skills .skill-box,
+  .skills .skill-box::before,
+  .skills .skill-box i,
+  .skills .skill-item .progress .progress-bar,
+  .skills .skill-item .skill-tooltip,
+  .skills .skill-box .skill-tooltip {
+    transition: none;
+  }
+}
+
+
 /*--------------------------------------------------------------
 # Resume Section
 --------------------------------------------------------------*/
@@ -1529,6 +2780,357 @@ section,
   }
 }
 
+
+/* ========================================
+   LIQUID GLASS - RESUME SIDEBAR
+======================================== */
+.resume .resume-side {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--surface-color), transparent 30%),
+    var(--surface-color)
+  );
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  padding: 2rem;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 14px;
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  height: 100%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* Pantulan cahaya pada panel */
+.resume .resume-side::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 60%,
+    rgba(56, 189, 248, 0.04) 100%
+  );
+  opacity: 0.7;
+  transition: opacity 0.35s ease;
+}
+
+.resume .resume-side:hover {
+  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08),
+    0 0 18px rgba(56, 189, 248, 0.05),
+    inset 0 1px 2px rgba(255, 255, 255, 0.24);
+}
+
+.resume .resume-side:hover::before {
+  opacity: 1;
+}
+
+/* Foto Profil */
+.resume .resume-side .profile-img {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.resume .resume-side .profile-img img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 5px solid color-mix(in srgb, var(--accent-color), transparent 85%);
+  border-radius: 50%;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 0 16px color-mix(in srgb, var(--accent-color), transparent 88%),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.resume .resume-side .profile-img img:hover {
+  transform: scale(1.03);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 55%);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.12),
+    0 0 22px color-mix(in srgb, var(--accent-color), transparent 78%);
+}
+
+/* Heading Sidebar */
+.resume .resume-side h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--heading-color);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+/* Informasi Kontak */
+.resume .resume-side .contact-info {
+  position: relative;
+  z-index: 1;
+}
+
+.resume .resume-side .contact-info li {
+  margin-bottom: 1rem;
+  color: var(--default-color);
+}
+
+.resume .resume-side .contact-info li i {
+  width: 25px;
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.resume .resume-side .contact-info li:hover i {
+  transform: translateX(2px);
+}
+
+/* Skill Sidebar */
+.resume .resume-side .skill-item {
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.resume .resume-side .skill-item span {
+  font-size: 0.9rem;
+  color: var(--default-color);
+}
+
+/* Progress Track */
+.resume .resume-side .skill-item .progress {
+  height: 8px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 94%);
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Progress Fill */
+.resume .resume-side .skill-item .progress .progress-bar {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent-color), white 8%),
+    var(--accent-color)
+  );
+  width: 0;
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color), transparent 65%);
+}
+
+/* ========================================
+   RESUME CONTENT
+======================================== */
+.resume .resume-section {
+  margin-bottom: 3rem;
+}
+
+.resume .resume-section h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.resume .resume-section h3 i {
+  color: var(--accent-color);
+  margin-right: 0.35rem;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+.resume .resume-section h3:hover i {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent-color), transparent 55%));
+}
+
+/* Timeline Resume */
+.resume .resume-section .resume-item {
+  padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  margin-bottom: 2rem;
+  position: relative;
+  border-radius: 0 10px 10px 0;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Titik Timeline */
+/* .resume .resume-section .resume-item:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  left: -9px;
+  top: 1.25rem;
+  background: var(--accent-color);
+  border: 3px solid var(--surface-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-color), transparent 65%);
+  transition: box-shadow 0.3s ease;
+} */
+
+/* Hover Timeline */
+/* .resume .resume-section .resume-item:hover {
+  background-color: color-mix(in srgb, var(--surface-color), transparent 20%);
+  border-left-color: var(--accent-color);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateX(4px);
+}
+
+.resume .resume-section .resume-item:hover:before {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent-color), transparent 88%),
+    0 0 12px color-mix(in srgb, var(--accent-color), transparent 55%);
+} */
+
+
+/* Liquid Glass - Titik Timeline */
+.resume .resume-section .resume-item:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: -9px;
+  top: 1.25rem;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-color), white 20%),
+    var(--accent-color) 65%
+  );
+  border: 3px solid var(--surface-color);
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--accent-color), transparent 65%),
+    inset 0 1px 2px rgba(255, 255, 255, 0.55),
+    0 2px 5px rgba(0, 0, 0, 0.08);
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+/* Liquid Glass - Hover Timeline */
+.resume .resume-section .resume-item:hover {
+  background-color: color-mix(in srgb, var(--surface-color), transparent 20%);
+  border-left-color: var(--accent-color);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 14px color-mix(in srgb, var(--accent-color), transparent 94%);
+  transform: translateX(4px);
+}
+
+.resume .resume-section .resume-item:hover:before {
+  transform: scale(1.12);
+  filter: brightness(1.08);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent-color), transparent 88%),
+    0 0 14px color-mix(in srgb, var(--accent-color), transparent 50%),
+    inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .resume .resume-section .resume-item:before {
+    transition: none;
+  }
+}
+
+
+/* Judul Pengalaman / Pendidikan */
+.resume .resume-section .resume-item h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.resume .resume-section .resume-item h5 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+}
+
+.resume .resume-section .resume-item .company {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: var(--heading-color);
+}
+
+.resume .resume-section .resume-item .company i {
+  margin-right: 0.5rem;
+  color: var(--accent-color);
+}
+
+/* Deskripsi Resume */
+.resume .resume-section .resume-item ul {
+  padding-left: 1.2rem;
+}
+
+.resume .resume-section .resume-item ul li {
+  margin-bottom: 0.5rem;
+  color: var(--default-color);
+}
+
+.resume .resume-section .resume-item p {
+  color: var(--default-color);
+  margin-bottom: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 991.98px) {
+  .resume .resume-side {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Reduce Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .resume .resume-side,
+  .resume .resume-side::before,
+  .resume .resume-side .profile-img img,
+  .resume .resume-side .contact-info li i,
+  .resume .resume-section h3 i,
+  .resume .resume-section .resume-item,
+  .resume .resume-section .resume-item:before,
+  .resume .resume-side .skill-item .progress .progress-bar {
+    transition: none;
+  }
+}
+
+
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
@@ -1538,7 +3140,7 @@ section,
   }
 }
 
-.portfolio .filters-wrapper {
+/* .portfolio .filters-wrapper {
   background-color: color-mix(in srgb, var(--surface-color), var(--default-color) 3%);
   padding: 30px;
   border-radius: 10px;
@@ -1548,6 +3150,76 @@ section,
 @media (max-width: 991px) {
   .portfolio .filters-wrapper {
     padding: 20px;
+  }
+} */
+
+
+/* Liquid Glass - Portfolio Filters */
+.portfolio .filters-wrapper {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--surface-color), var(--default-color) 3%),
+    var(--surface-color)
+  );
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  padding: 30px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 12px;
+  box-shadow:
+    0 5px 25px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Pantulan cahaya kaca */
+.portfolio .filters-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 65%,
+    rgba(56, 189, 248, 0.04) 100%
+  );
+  opacity: 0.7;
+  transition: opacity 0.35s ease;
+}
+
+.portfolio .filters-wrapper:hover {
+  border-color: color-mix(in srgb, var(--default-color), transparent 82%);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.07),
+    0 0 16px rgba(56, 189, 248, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.24);
+}
+
+.portfolio .filters-wrapper:hover::before {
+  opacity: 1;
+}
+
+/* Responsive Tablet & Mobile */
+@media (max-width: 991px) {
+  .portfolio .filters-wrapper {
+    padding: 20px;
+  }
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .filters-wrapper,
+  .portfolio .filters-wrapper::before {
+    transition: none;
   }
 }
 
@@ -1912,6 +3584,131 @@ section,
   }
 }
 
+
+
+/* ========================================
+   LIQUID GLASS - SERVICES SECTION
+   Background dan warna asli tetap dipertahankan
+======================================== */
+
+/* Efek kaca pada service card */
+.services .service-card {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* Lapisan pantulan kaca */
+.services .service-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 25%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  opacity: 0.65;
+  transition: opacity 0.35s ease;
+}
+
+/* Ikon dengan efek kaca */
+.services .service-card .service-icon {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.035);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* Efek saat card disentuh atau di-hover */
+.services .service-card:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--accent-color),
+    transparent 55%
+  );
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.24),
+    0 12px 30px rgba(0, 0, 0, 0.07),
+    0 0 18px color-mix(
+      in srgb,
+      var(--accent-color),
+      transparent 90%
+    );
+  transform: translateY(-3px);
+}
+
+/* Kilau kaca ketika hover */
+.services .service-card:hover::after {
+  opacity: 1;
+}
+
+/* Ikon lebih menonjol ketika hover */
+.services .service-card:hover .service-icon {
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 6px 16px color-mix(
+      in srgb,
+      var(--accent-color),
+      transparent 88%
+    );
+}
+
+/* Tombol aksi tetap mengikuti warna accent asli */
+.services .service-card .card-action {
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .services .service-card {
+    border-radius: 14px;
+  }
+
+  .services .service-card .card-action {
+    border-top-right-radius: 13px;
+    border-bottom-left-radius: 14px;
+  }
+}
+
+/* Aksesibilitas: kurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  .services .service-card,
+  .services .service-card::after,
+  .services .service-card .service-icon {
+    transition: none;
+  }
+
+  .services .service-card:hover {
+    transform: none;
+  }
+}
+
 /*--------------------------------------------------------------
 # Testimonials Section
 --------------------------------------------------------------*/
@@ -1992,6 +3789,7 @@ section,
   color: var(--accent-color);
 }
 
+
 .testimonials .client-info {
   display: flex;
   align-items: center;
@@ -2060,6 +3858,7 @@ section,
     margin: 1.25rem 0;
   }
 
+  
   .testimonials .quote-pattern {
     width: 2.25rem;
     height: 2.25rem;
@@ -2088,6 +3887,8 @@ section,
     font-size: 0.8125rem;
   }
 }
+
+
 
 /*--------------------------------------------------------------
 # Contact Section
@@ -2127,6 +3928,95 @@ section,
   }
 }
 
+/* Contact Information - Liquid Glass */
+.contact .info-box {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #232323af;
+  color: var(--contrast-color);
+  padding: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.087);
+  border-radius: 1.25rem;
+  height: 100%;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.08),
+    0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Pantulan cahaya kaca */
+.contact .info-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.06) 35%,
+    transparent 65%
+  );
+}
+
+/* Pastikan konten berada di atas efek kaca */
+.contact .info-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Judul */
+.contact .info-box h3 {
+  color: 
+ color-mix(in srgb, var(--default-color), transparent 25%);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Deskripsi */
+.contact .info-box p {
+  color: 
+ color-mix(in srgb, var(--default-color), transparent 25%);
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+
+/* Link */
+.contact .info-box a {
+  color: 
+ color-mix(in srgb, var(--default-color), transparent 25%);
+}
+
+/* Hover */
+.contact .info-box:hover {
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 14px 36px rgba(0, 0, 0, 0.14);
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .contact .info-box {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .contact .info-box h3 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .contact .info-box {
+    transition: none;
+  }
+}
+
 .contact .info-item {
   display: flex;
   gap: 1.5rem;
@@ -2137,21 +4027,73 @@ section,
   margin-bottom: 0;
 }
 
+/* Liquid Glass - Contact Icon */
 .contact .info-item .icon-box {
   width: 3.5rem;
   height: 3.5rem;
-  background-color: color-mix(in srgb, var(--contrast-color), transparent 85%);
+  background: color-mix(
+    in srgb,
+    var(--contrast-color),
+    transparent 78%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: 0.3s;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* Icon */
 .contact .info-item .icon-box i {
   font-size: 1.5rem;
-  color: var(--contrast-color);
+  color: color-mix(
+    in srgb,
+    var(--default-color),
+    transparent 25%
+  );
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Hover */
+.contact .info-item:hover .icon-box {
+  background: color-mix(
+    in srgb,
+    var(--contrast-color),
+    transparent 65%
+  );
+  transform: translateY(-2px);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.45),
+    0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.contact .info-item:hover .icon-box i {
+  transform: scale(1.08);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .contact .info-item .icon-box,
+  .contact .info-item .icon-box i {
+    transition: none;
+  }
 }
 
 .contact .info-item:hover .icon-box {
@@ -2159,7 +4101,8 @@ section,
 }
 
 .contact .info-item .content h4 {
-  color: var(--contrast-color);
+  color: 
+ color-mix(in srgb, var(--default-color), transparent 25%);
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -2175,7 +4118,7 @@ section,
 }
 
 .contact .contact-form {
-  background-color: var(--surface-color);
+  background-color: #232323af;
   padding: 3rem;
   border-radius: 1rem;
   height: 100%;
@@ -2204,24 +4147,73 @@ section,
   margin-bottom: 2rem;
 }
 
+/* Liquid Glass - Form Input & Select */
 .contact .contact-form .form-control,
 .contact .contact-form .form-select {
   padding: 0.875rem 1.25rem;
-  border-color: color-mix(in srgb, var(--default-color), transparent 90%);
-  border-radius: 0.5rem;
-  background-color: color-mix(in srgb, var(--surface-color) 90%, white 5%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.48);
   color: var(--default-color);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.85),
+    0 3px 10px rgba(20, 35, 55, 0.025);
+
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
 
+/* Saat input diklik */
 .contact .contact-form .form-control:focus,
 .contact .contact-form .form-select:focus {
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.75);
   border-color: var(--accent-color);
+
+  box-shadow:
+    0 0 0 3px color-mix(
+      in srgb,
+      var(--accent-color),
+      transparent 85%
+    ),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+
+  outline: none;
 }
 
+/* Placeholder */
 .contact .contact-form .form-control::placeholder,
 .contact .contact-form .form-select::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  color: color-mix(
+    in srgb,
+    var(--default-color),
+    transparent 45%
+  );
+  opacity: 1;
+}
+
+/* Hover */
+.contact .contact-form .form-control:hover,
+.contact .contact-form .form-select:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--accent-color),
+    transparent 65%
+  );
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .contact .contact-form .form-control,
+  .contact .contact-form .form-select {
+    transition: none;
+  }
 }
 
 .contact .contact-form .btn {
@@ -2242,6 +4234,190 @@ section,
 .contact .contact-form .btn:hover {
   background-color: color-mix(in srgb, var(--accent-color), var(--contrast-color) 20%);
 }
+
+
+/* Contact Form - Liquid Glass */
+.contact .contact-form {
+  background-color: #232323af;
+  padding: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.134);
+  border-radius: 1.25rem;
+  height: 100%;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    0 8px 28px rgba(20, 35, 55, 0.06);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  transition: box-shadow 0.3s ease;
+}
+
+.contact .contact-form:hover {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    0 12px 32px rgba(20, 35, 55, 0.09);
+}
+
+@media (max-width: 992px) {
+  .contact .contact-form {
+    padding: 1.5rem;
+  }
+}
+
+.contact .contact-form h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .contact .contact-form h3 {
+    font-size: 1.75rem;
+  }
+}
+
+.contact .contact-form p {
+  color: color-mix(
+    in srgb,
+    var(--default-color),
+    transparent 25%
+  );
+  margin-bottom: 2rem;
+}
+
+/* Input dan select */
+.contact .contact-form .form-control,
+.contact .contact-form .form-select {
+  padding: 0.875rem 1.25rem;
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--default-color);
+  box-shadow: inset 0 1px 2px rgba(20, 35, 55, 0.025);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Fokus input */
+.contact .contact-form .form-control:focus,
+.contact .contact-form .form-select:focus {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px color-mix(
+    in srgb,
+    var(--accent-color),
+    transparent 85%
+  );
+  outline: none;
+}
+
+/* Placeholder */
+.contact .contact-form .form-control::placeholder,
+.contact .contact-form .form-select::placeholder {
+  color: color-mix(
+    in srgb,
+    var(--default-color),
+    transparent 40%
+  );
+  opacity: 1;
+}
+
+/* Liquid Glass - Contact Button */
+.contact .contact-form .btn {
+  position: relative;
+  overflow: hidden;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 1rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.08),
+    0 5px 16px rgba(20, 35, 55, 0.12);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* Pantulan cahaya */
+.contact .contact-form .btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.24),
+    transparent 55%,
+    rgba(255, 255, 255, 0.06)
+  );
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+/* Pastikan teks dan ikon di atas pantulan */
+.contact .contact-form .btn i,
+.contact .contact-form .btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.contact .contact-form .btn i {
+  font-size: 1.25rem;
+}
+
+/* Hover */
+.contact .contact-form .btn:hover {
+  background: color-mix(
+    in srgb,
+    var(--accent-color),
+    var(--contrast-color) 15%
+  );
+  color: var(--contrast-color);
+  transform: translateY(-2px);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    0 9px 22px rgba(20, 35, 55, 0.16);
+}
+
+.contact .contact-form .btn:hover::before {
+  opacity: 1;
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .contact .contact-form .btn,
+  .contact .contact-form .btn::before {
+    transition: none;
+  }
+
+  .contact .contact-form .btn:hover {
+    transform: none;
+  }
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .contact .contact-form,
+  .contact .contact-form .form-control,
+  .contact .contact-form .form-select,
+  .contact .contact-form .btn {
+    transition: none;
+  }
+
+  .contact .contact-form .btn:hover {
+    transform: none;
+  }
+}
+
 
 /*--------------------------------------------------------------
 # Portfolio Details Section
@@ -2564,4 +4740,179 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+/* Stacked Portfolio Background */
+.portfolio .portfolio-wrap.stacked-preview {
+  position: relative;
+  isolation: isolate;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    radial-gradient(ellipse at 50% 85%, rgba(255,255,255,.3), transparent 45%),
+    radial-gradient(ellipse at 50% 0%, #74c5ff 0%, transparent 65%),
+    linear-gradient(135deg, #2585ed 0%, #4c8ff0 48%, #306de0 100%);
+}
+
+/* Soft glow */
+.portfolio .portfolio-wrap.stacked-preview::before {
+  content: "";
+  position: absolute;
+  width: 65%;
+  height: 85%;
+  left: 17.5%;
+  top: 25%;
+  z-index: 0;
+  background: rgba(255,255,255,.2);
+  filter: blur(55px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Screenshot base */
+.portfolio .portfolio-wrap.stacked-preview img.preview-main,
+.portfolio .portfolio-wrap.stacked-preview img.preview-side {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  border-radius: 7px;
+  box-shadow: 0 12px 30px rgba(12, 35, 80, .22);
+  transition: transform .5s ease, opacity .5s ease;
+}
+
+/* Main screenshot */
+.portfolio .portfolio-wrap.stacked-preview img.preview-main {
+  width: 65%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 18px 40px rgba(10, 35, 80, .3);
+}
+
+/* Side screenshots */
+.portfolio .portfolio-wrap.stacked-preview img.preview-side {
+  width: 60%;
+  opacity: .95;
+}
+
+.portfolio .portfolio-wrap.stacked-preview img.preview-left {
+  z-index: 1;
+  transform: translate(-105%, -43%) scale(.88);
+}
+
+.portfolio .portfolio-wrap.stacked-preview img.preview-right {
+  z-index: 2;
+  transform: translate(5%, -43%) scale(.88);
+}
+
+/* Hover animation */
+.portfolio .portfolio-wrap.stacked-preview:hover img.preview-main {
+  transform: translate(-50%, -52%) scale(1.03);
+}
+
+.portfolio .portfolio-wrap.stacked-preview:hover img.preview-left {
+  transform: translate(-112%, -43%) scale(.9);
+}
+
+.portfolio .portfolio-wrap.stacked-preview:hover img.preview-right {
+  transform: translate(12%, -43%) scale(.9);
+}
+
+/* Keep portfolio overlay above screenshots */
+.portfolio .portfolio-wrap.stacked-preview .portfolio-info {
+  z-index: 5;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .portfolio .portfolio-wrap.stacked-preview {
+    aspect-ratio: 4 / 3;
+  }
+
+  .portfolio .portfolio-wrap.stacked-preview img.preview-main {
+    width: 72%;
+  }
+
+  .portfolio .portfolio-wrap.stacked-preview img.preview-side {
+    width: 65%;
+  }
+
+  .portfolio .portfolio-wrap.stacked-preview img.preview-left {
+    transform: translate(-95%, -43%) scale(.85);
+  }
+
+  .portfolio .portfolio-wrap.stacked-preview img.preview-right {
+    transform: translate(-5%, -43%) scale(.85);
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .portfolio-wrap.stacked-preview img {
+    transition: none;
+  }
+}
+
+
+/* ========================================
+   LIQUID GLASS - STACKED PORTFOLIO
+   Background asli tetap dipertahankan
+======================================== */
+
+.portfolio .portfolio-wrap.stacked-preview {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.08),
+    0 8px 24px rgba(12, 35, 80, 0.08);
+  background-clip: padding-box;
+}
+
+/* Pantulan cahaya pada permukaan kaca */
+.portfolio .portfolio-wrap.stacked-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.20) 0%,
+    rgba(255, 255, 255, 0.06) 18%,
+    transparent 38%,
+    transparent 72%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0.7;
+  transition:
+    opacity 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Kilau kaca ketika hover */
+.portfolio .portfolio-wrap.stacked-preview:hover {
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.1),
+    0 12px 30px rgba(12, 35, 80, 0.14),
+    0 0 18px rgba(255, 255, 255, 0.08);
+}
+
+.portfolio .portfolio-wrap.stacked-preview:hover::after {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .portfolio-wrap.stacked-preview::after {
+    transition: none;
+  }
 }
